@@ -24,9 +24,9 @@ payload = ('{\n  "pat": "$(pat_token)",'
 
 def auth():
     # Replace with your Azure DevOps URL and project name
-    organization_url = "https://dev.azure.com/RinggitPay"
+    organization_url = "Your Org Url"
     # Replace with your PAT
-    personal_access_token = "qf3i3xxb24nbkmxaubs7jhm5fpl6pjknf3br7th563ipnzxqdqba"
+    personal_access_token = "Your Pat Token"
     # Create a connection to your organization
     credentials = BasicAuthentication("", personal_access_token)
     return [organization_url, credentials]
@@ -36,8 +36,7 @@ def modify_env_name():
     connection_strings = auth()
     connection = Connection(base_url=connection_strings[0], creds=connection_strings[1])
     release_client = connection.clients_v7_1.get_release_client()
-    project_names = ["RinggitPay.Identity", "RinggitPay.PaymentGateway", "RinggitPay.CustomForms",
-                     "RinggitPay.Products"]
+    project_names = []
     for project_name in project_names:
         # Get all release definitions
         release_definitions = release_client.get_release_definitions(
@@ -102,8 +101,7 @@ def modify_release_definition():
     connection_strings = auth()
     connection = Connection(base_url=connection_strings[0], creds=connection_strings[1])
     release_client = connection.clients_v7_1.get_release_client()
-    project_names = ["RinggitPay.Identity", "RinggitPay.PaymentGateway", "RinggitPay.CustomForms",
-                     "RinggitPay.Products"]
+    project_names = []
     for project_name in project_names:
         # Get all release definitions
         release_definitions = release_client.get_release_definitions(
@@ -123,8 +121,7 @@ def create_environment(env_name: str):
     connection_strings = auth()
     connection = Connection(base_url=connection_strings[0], creds=connection_strings[1])
     release_client = connection.clients_v7_1.get_release_client()
-    project_names = ["RinggitPay.Identity", "RinggitPay.PaymentGateway", "RinggitPay.CustomForms",
-                     "RinggitPay.Products"]
+    project_names = []
     for project_name in project_names:
         # Get the release definition you want to modify
         release_definitions = release_client.get_release_definitions(
@@ -176,8 +173,7 @@ def delete_release_variables():
     connection_strings = auth()
     connection = Connection(base_url=connection_strings[0], creds=connection_strings[1])
     release_client = connection.clients_v7_1.get_release_client()
-    project_names = ["RinggitPay.Identity", "RinggitPay.PaymentGateway", "RinggitPay.CustomForms",
-                     "RinggitPay.Products"]
+    project_names = []
     for project_name in project_names:
         # Get the release definition you want to modify
         release_definitions = release_client.get_release_definitions(
@@ -194,9 +190,9 @@ def delete_release_variables():
             release_client.update_release_definition(release_definition, project=project_name)
 
 
-# create_environment("uat")
-# modify_release_definition()
-# delete_release_variables()
-# modify_env_name()
+create_environment("uat")
+modify_release_definition()
+delete_release_variables()
+modify_env_name()
 
 
